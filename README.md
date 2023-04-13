@@ -1,4 +1,5 @@
 # RGCosm - Reverse Geocode for OpenStreetmap
+[![Upload Python Package](https://github.com/BlackCatDevel0per/rgcosm/actions/workflows/python-publish.yml/badge.svg)](https://github.com/BlackCatDevel0per/rgcosm/actions/workflows/python-publish.yml)
 
 A Python library for offline reverse geocoding from osm(.pbf) GIS data based on code from [rgcoms scripts](https://github.com/punnerud/rgcosm)
 
