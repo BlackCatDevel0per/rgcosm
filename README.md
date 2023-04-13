@@ -7,6 +7,13 @@ A Python library for offline reverse geocoding from osm(.pbf) GIS converted to s
 ```bash
 pip install rgcoms
 ```
+or from source by:
+```bash
+git clone https://github.com/BlackCatDevel0per/rgcosm
+cd rgcoms
+pip install build
+python -m build
+```
 
 ### Dependencies
 1. osmium
