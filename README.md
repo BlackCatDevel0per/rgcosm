@@ -1,12 +1,17 @@
 # RGCosm - Reverse Geocode for OpenStreetmap
 
+See cli commands by:
+```
+python coordinates_to_address.py -lat <latitude> -lon <longitude>
+```
+
 Locally hosted OpenStreetmap using sqlite3 for reverse geocode.
 So you easily can find adresses based on coordinates.
 
 Download the pbf file from:
 https://download.geofabrik.de/
 
-Then use convert.py to create the database:
+Then use convert.py to create the database (speedupped by using db in ram & dump in to disk):
 ```
 python3 convert.py
 ```
