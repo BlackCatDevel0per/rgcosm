@@ -19,15 +19,28 @@ parser.add_argument(
 parser.add_argument(
 	'-co', '--coutput',
 	type=str,
-	default='convert_output.db',
 	help='Path to output db file'
 )
 parser.add_argument(
 	'-ai', '--add_indexes',
-	type=str,
-	default='True',
+	type=str,  # bool
+	default=True,
 	help='Add indexes for faster search default yes'
 )
+
+
+def init_args(args):
+	if args.add_indexes in (True, 'Y', 'y', 'Yes', 'yes', 'True', 'true', '1'):
+		args.add_indexes = True
+	else:
+		args.add_indexes = False
+	if not args.coutput:
+		fno = os.path.splitext(args.cinput)[0]
+		fn = os.path.splitext(fno)[0]
+		args.coutput = ''.join((fn, '.db'))
+	if args.cinput == args.coutput:
+		print('You want to save file with the same name as the input file!')
+		exit(1)
 
 
 class OsmHandler(osmium.SimpleHandler):
@@ -79,11 +92,6 @@ def osm2sqlite3(input_fpath: 'Union[str, Path]', output_fpath: 'Union[str, Path]
 
 def main():
 	args = parser.parse_args()
-
-	if args.add_indexes in ('Y', 'y', 'Yes', 'yes', 'True', 'true'):
-		args.add_indexes = True
-	else:
-		args.add_indexes = False
 
 	osm2sqlite3(args.input, args.output, args.add_indexes)
 

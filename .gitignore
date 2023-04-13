@@ -1,4 +1,5 @@
 __pycache__
+venv/
 args_example.py
 test_sql.py
 *.osm.pbf

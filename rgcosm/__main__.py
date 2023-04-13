@@ -1,34 +1,32 @@
+import sys
+
+if len(sys.argv) == 1:
+	print('Help: rgosm -h/--help')
+	exit(1)
+
 import argparse
 
 from convert import parser as conv_parser
-from coordinates_to_address import parser as ltln_parser
+from geocoder import parser as ltln_parser
 
 parser = argparse.ArgumentParser(description='rgcosm cli', parents=[conv_parser, ltln_parser])
 
 args = parser.parse_args()
 
 
-# Geocoder add_indexes to bool conversion
-if args.add_indexes in ('Y', 'y', 'Yes', 'yes', 'True', 'true'):
-	args.add_indexes = True
-else:
-	args.add_indexes = False
-
 # Converter
-if args.cinput and args.coutput:
+if args.cinput:
 	from convert import osm2sqlite3
+	from convert import init_args as converter_init_args
+	converter_init_args(args)
 	osm2sqlite3(args.cinput, args.coutput, args.add_indexes)
 
 
 # Geocoder
-if args.database:
-	from coordinates_to_address import coordinates_to_address
-	if not args.latitude and not args.longitude:
-		if not args.lat_lon:
-			print('Give coordinates in lat & lon')
-			exit(1)
-		lat, lon = args.lat_lon.split()
-		args.latitude = lat
-		args.longitude = lon
-	addr = coordinates_to_address(args.database, float(args.latitude), float(args.longitude))
+elif args.database:
+	from geocoder import get_address
+	from geocoder import init_args as geocoder_init_args
+	geocoder_init_args(args)
+	addr = get_address(args.database, (args.latitude, args.longitude), args.search_tags, args.min_tags_count)
 	print(addr)
+
