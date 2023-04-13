@@ -76,7 +76,7 @@ print(addr)
 ```
 result:
 ```bash
-[{'id': 9508099415, 'lat': 6.5506617, 'lon': 72.9530232, 'tags': "{'addr:block_number': '26', 'generator:method': 'combustion', 'generator:output:electricity': '200 kV', 'generator:source': 'diesel', 'name': 'Vaikaradhoo Fenaka Power Plant 3', 'operator': 'Fenaka Corporation Limited Vaikaradhoo', 'power': 'generator'}"}]
+[{'id': 9508099415, 'lat': 6.5506617, 'lon': 72.9530232, 'tags': {'addr:block_number': '26', 'generator:method': 'combustion', 'generator:output:electricity': '200 kV', 'generator:source': 'diesel', 'name': 'Vaikaradhoo Fenaka Power Plant 3', 'operator': 'Fenaka Corporation Limited Vaikaradhoo', 'power': 'generator'}}]
 ```
 or with multiple coordinates:
 ```python
@@ -88,7 +88,7 @@ print(addr)
 ```
 result:
 ```bash
-[{'id': 9508099415, 'lat': 6.5506617, 'lon': 72.9530232, 'tags': "{'addr:block_number': '26', 'generator:method': 'combustion', 'generator:output:electricity': '200 kV', 'generator:source': 'diesel', 'name': 'Vaikaradhoo Fenaka Power Plant 3', 'operator': 'Fenaka Corporation Limited Vaikaradhoo', 'power': 'generator'}"}, {'id': 2521220337, 'lat': 4.172474, 'lon': 73.5083067, 'tags': '{\'addr:city\': "Male\'", \'addr:housename\': \'Ma.Seventy Flower\', \'addr:street\': \'Iskandharu Magu\', \'amenity\': \'cafe\', \'cuisine\': \'coffee_shop\', \'internet_access\': \'yes\', \'name\': "Chili\'s Café"}'}, {'id': 7987147424, 'lat': 4.1718557, 'lon': 73.5154427, 'tags': '{\'addr:city\': "Male\'", \'addr:housenumber\': \'H.Hostside\', \'addr:postcode\': \'20053\', \'addr:street\': \'Irudheymaa Hingun\', \'clothes\': \'women;wedding;men;suits;fashion;children\', \'contact:facebook\': \'https://m.facebook.com/Aiccet/\', \'currency:EUR\': \'yes\', \'currency:GBP\': \'yes\', \'currency:USD\': \'yes\', \'name\': \'Aiccet\', \'opening_hours\': \'24/7\', \'operator\': \'Aiccet\', \'payment:american_express\': \'yes\', \'payment:cash\': \'yes\', \'payment:credit_cards\': \'yes\', \'payment:mastercard\': \'yes\', \'payment:visa\': \'yes\', \'payment:visa_debit\': \'yes\', \'phone\': \'+960 7997323\', \'shop\': \'clothes\'}'}]
+: 'generator'}}, {'id': 2521220337, 'lat': 4.172474, 'lon': 73.5083067, 'tags': {'addr:city': "Male'", 'addr:housename': 'Ma.Seventy Flower', 'addr:street': 'Iskandharu Magu', 'amenity': 'cafe', 'cuisine': 'coffee_shop', 'internet_access': 'yes', 'name': "Chili's Café"}}, {'id': 7987147424, 'lat': 4.1718557, 'lon': 73.5154427, 'tags': {'addr:city': "Male'", 'addr:housenumber': 'H.Hostside', 'addr:postcode': '20053', 'addr:street': 'Irudheymaa Hingun', 'clothes': 'women;wedding;men;suits;fashion;children', 'contact:facebook': 'https://m.facebook.com/Aiccet/', 'currency:EUR': 'yes', 'currency:GBP': 'yes', 'currency:USD': 'yes', 'name': 'Aiccet', 'opening_hours': '24/7', 'operator': 'Aiccet', 'payment:american_express': 'yes', 'payment:cash': 'yes', 'payment:credit_cards': 'yes', 'payment:mastercard': 'yes', 'payment:visa': 'yes', 'payment:visa_debit': 'yes', 'phone': '+960 7997323', 'shop': 'clothes'}}]
 ```
 
 Advanced (for keep connection to db):
@@ -102,7 +102,7 @@ print(addrs)
 ```
 result:
 ```
-[{'id': 10300135473, 'lat': 4.1758869, 'lon': 73.5094013, 'tags': '{\'addr:city\': "Male\'", \'email\': \'silverlinehotelsupplier@gmail.com\', \'name\': \'Silverline Hotel Supplies\', \'office\': \'company\', \'phone\': \'732-9577\', \'website\': \'http://www.silverlineenterprise.com/\'}'}, {'id': 9446166886, 'lat': -0.6699146, 'lon': 73.1228688, 'tags': "{'addr:city': 'Addu City', 'addr:housenumber': 'Mushkuraanaage', 'addr:postcode': '19030', 'addr:street': 'Dhandivara Maga'}"}, {'id': 8439302155, 'lat': 5.159217, 'lon': 73.1312907, 'tags': "{'addr:city': 'Dharavandhoo', 'addr:postcode': '06060', 'amenity': 'courthouse', 'name': 'Dharavandhoo Magistrate Court', 'opening_hours': 'Sa-Th 08:00-14:00', 'operator': 'Government of Maldives'}"}]
+[{'id': 10300135473, 'lat': 4.1758869, 'lon': 73.5094013, 'tags': {'addr:city': "Male'", 'email': 'silverlinehotelsupplier@gmail.com', 'name': 'Silverline Hotel Supplies', 'office': 'company', 'phone': '732-9577', 'website': 'http://www.silverlineenterprise.com/'}}, {'id': 9446166886, 'lat': -0.6699146, 'lon': 73.1228688, 'tags': {'addr:city': 'Addu City', 'addr:housenumber': 'Mushkuraanaage', 'addr:postcode': '19030', 'addr:street': 'Dhandivara Maga'}}, {'id': 8439302155, 'lat': 5.159217, 'lon': 73.1312907, 'tags': {'addr:city': 'Dharavandhoo', 'addr:postcode': '06060', 'amenity': 'courthouse', 'name': 'Dharavandhoo Magistrate Court', 'opening_hours': 'Sa-Th 08:00-14:00', 'operator': 'Government of Maldives'}}]
 ```
 
 ### In plans:

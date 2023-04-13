@@ -1,5 +1,6 @@
 import os
 import osmium
+import json
 import sqlite3
 
 import argparse
@@ -56,12 +57,12 @@ class OsmHandler(osmium.SimpleHandler):
 
 
 	def node(self, n):
-		self.cursor.execute('''INSERT INTO nodes (id, lat, lon, tags) VALUES (?, ?, ?, ?)''', (n.id, n.location.lat, n.location.lon, str(dict(n.tags))))
+		self.cursor.execute('''INSERT INTO nodes (id, lat, lon, tags) VALUES (?, ?, ?, ?)''', (n.id, n.location.lat, n.location.lon, json.dumps(dict(n.tags))))
 		self.conn.commit()
 
 
 	def way(self, w):
-		self.cursor.execute('''INSERT INTO ways (id, nodes, tags) VALUES (?, ?, ?)''', (w.id, ' '.join(map(str, w.nodes)), str(dict(w.tags))))
+		self.cursor.execute('''INSERT INTO ways (id, nodes, tags) VALUES (?, ?, ?)''', (w.id, ' '.join(map(str, w.nodes)), json.dumps(dict(w.tags))))
 		self.conn.commit()
 
 

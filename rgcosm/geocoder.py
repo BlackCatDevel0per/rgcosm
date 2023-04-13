@@ -1,4 +1,5 @@
 import sqlite3
+import json
 import math
 
 import argparse
@@ -96,6 +97,8 @@ class RGeocoder():
 		#for tag in min_address['tags'].split(','):
 		#    k, v = tag.split(':', 1)
 		#    address[k] = v
+
+		min_address['tags'] = json.loads(min_address['tags'])
 
 		# Return the address
 		return min_address
