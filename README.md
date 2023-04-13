@@ -102,4 +102,5 @@ result:
 - [ ] db serializing with lz4 compression & etc.
 - [ ] More speedup conversion & less memory usage
 - [ ] Add some features from other similar libs
+- [ ] More documentation
 
