@@ -98,7 +98,8 @@ class RGeocoder():
 		#    k, v = tag.split(':', 1)
 		#    address[k] = v
 
-		min_address['tags'] = json.loads(min_address['tags'])
+		if min_address:
+			min_address['tags'] = json.loads(min_address['tags'])
 
 		# Return the address
 		return min_address
