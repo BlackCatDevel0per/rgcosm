@@ -108,6 +108,7 @@ result:
 ### In plans:
 - [ ] db serializing with lz4 compression & etc.
 - [ ] Add more formats for addresses
+- [ ] Add caching results
 - [ ] More speedup conversion & less memory usage
 - [ ] Add some features from other similar libs
 - [ ] More documentation
