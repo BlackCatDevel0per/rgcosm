@@ -20,11 +20,11 @@ python -m build
 
 ### CLI
 See cli commands by:
-```
-python coordinates_to_address.py -h
+```bash
+python rgcosm -h
 ```
 output:
-```
+```bash
 usage: rgcosm [-h] [-ci CINPUT] [-co COUTPUT] [-ai ADD_INDEXES]
               [-db DATABASE] [-ltln LAT_LON] [-lat LATITUDE] [-lon LONGITUDE] [-st SEARCH_TAGS] [-mtc MIN_TAGS_COUNT]
 
@@ -55,7 +55,7 @@ optional arguments:
 ### First convert downloaded osm(.pbf) files from:
 https://download.geofabrik.de/
 
-Then use convert.py to create the database (speedupped by using db in ram & dump in to disk):
+Then use cli to create the database (speedupped by using db in ram & dump in to disk):
 ```bash
 python rgcosm -ci some-place.osm.pbf -co some-place.db
 ```
@@ -75,7 +75,7 @@ addr = get_address(db_path, coordinates)
 print(addr)
 ```
 result:
-```bash
+```python
 [{'id': 9508099415, 'lat': 6.5506617, 'lon': 72.9530232, 'tags': {'addr:block_number': '26', 'generator:method': 'combustion', 'generator:output:electricity': '200 kV', 'generator:source': 'diesel', 'name': 'Vaikaradhoo Fenaka Power Plant 3', 'operator': 'Fenaka Corporation Limited Vaikaradhoo', 'power': 'generator'}}]
 ```
 or with multiple coordinates:
@@ -87,8 +87,8 @@ addr = get_address(db_path, coordinates)
 print(addr)
 ```
 result:
-```bash
-: 'generator'}}, {'id': 2521220337, 'lat': 4.172474, 'lon': 73.5083067, 'tags': {'addr:city': "Male'", 'addr:housename': 'Ma.Seventy Flower', 'addr:street': 'Iskandharu Magu', 'amenity': 'cafe', 'cuisine': 'coffee_shop', 'internet_access': 'yes', 'name': "Chili's Café"}}, {'id': 7987147424, 'lat': 4.1718557, 'lon': 73.5154427, 'tags': {'addr:city': "Male'", 'addr:housenumber': 'H.Hostside', 'addr:postcode': '20053', 'addr:street': 'Irudheymaa Hingun', 'clothes': 'women;wedding;men;suits;fashion;children', 'contact:facebook': 'https://m.facebook.com/Aiccet/', 'currency:EUR': 'yes', 'currency:GBP': 'yes', 'currency:USD': 'yes', 'name': 'Aiccet', 'opening_hours': '24/7', 'operator': 'Aiccet', 'payment:american_express': 'yes', 'payment:cash': 'yes', 'payment:credit_cards': 'yes', 'payment:mastercard': 'yes', 'payment:visa': 'yes', 'payment:visa_debit': 'yes', 'phone': '+960 7997323', 'shop': 'clothes'}}]
+```python
+[{'id': 9508099415, 'lat': 6.5506617, 'lon': 72.9530232, 'tags': {'addr:block_number': '26', 'generator:method': 'combustion', 'generator:output:electricity': '200 kV', 'generator:source': 'diesel', 'name': 'Vaikaradhoo Fenaka Power Plant 3', 'operator': 'Fenaka Corporation Limited Vaikaradhoo', 'power': 'generator'}}, {'id': 2521220337, 'lat': 4.172474, 'lon': 73.5083067, 'tags': {'addr:city': "Male'", 'addr:housename': 'Ma.Seventy Flower', 'addr:street': 'Iskandharu Magu', 'amenity': 'cafe', 'cuisine': 'coffee_shop', 'internet_access': 'yes', 'name': "Chili's Café"}}, {'id': 7987147424, 'lat': 4.1718557, 'lon': 73.5154427, 'tags': {'addr:city': "Male'", 'addr:housenumber': 'H.Hostside', 'addr:postcode': '20053', 'addr:street': 'Irudheymaa Hingun', 'clothes': 'women;wedding;men;suits;fashion;children', 'contact:facebook': 'https://m.facebook.com/Aiccet/', 'currency:EUR': 'yes', 'currency:GBP': 'yes', 'currency:USD': 'yes', 'name': 'Aiccet', 'opening_hours': '24/7', 'operator': 'Aiccet', 'payment:american_express': 'yes', 'payment:cash': 'yes', 'payment:credit_cards': 'yes', 'payment:mastercard': 'yes', 'payment:visa': 'yes', 'payment:visa_debit': 'yes', 'phone': '+960 7997323', 'shop': 'clothes'}}]
 ```
 
 Advanced (for keep connection to db):
@@ -101,7 +101,7 @@ addrs = geo.locate(coordinates, 'addr:', 1)
 print(addrs)
 ```
 result:
-```
+```python
 [{'id': 10300135473, 'lat': 4.1758869, 'lon': 73.5094013, 'tags': {'addr:city': "Male'", 'email': 'silverlinehotelsupplier@gmail.com', 'name': 'Silverline Hotel Supplies', 'office': 'company', 'phone': '732-9577', 'website': 'http://www.silverlineenterprise.com/'}}, {'id': 9446166886, 'lat': -0.6699146, 'lon': 73.1228688, 'tags': {'addr:city': 'Addu City', 'addr:housenumber': 'Mushkuraanaage', 'addr:postcode': '19030', 'addr:street': 'Dhandivara Maga'}}, {'id': 8439302155, 'lat': 5.159217, 'lon': 73.1312907, 'tags': {'addr:city': 'Dharavandhoo', 'addr:postcode': '06060', 'amenity': 'courthouse', 'name': 'Dharavandhoo Magistrate Court', 'opening_hours': 'Sa-Th 08:00-14:00', 'operator': 'Government of Maldives'}}]
 ```
 
