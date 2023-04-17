@@ -33,7 +33,7 @@ parser.add_argument(
 	type=str,  # float
 	help='longitude'
 )
-parser.add_argument(
+st = parser.add_argument(
 	'-st', '--search_tags',
 	type=str,
 	default='addr:',
@@ -43,7 +43,7 @@ parser.add_argument(
 	'-mtc', '--min_tags_count',
 	type=str,  # int
 	default=1,
-	help='Minimal tags count to filter'
+	help=f'Minimal tags count (for `{st.option_strings[0]}/{st.option_strings[1]}`) to filter result'
 )
 
 
