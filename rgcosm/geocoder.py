@@ -7,7 +7,7 @@ import argparse
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-	from typing import Union
+	from typing import Union, Optional
 	from typing import Mapping
 	from pathlib import Path
 
@@ -68,12 +68,19 @@ class RGeocoder():
 
 
 	def find(self, lat: float, lon: float, search_tags: str = 'addr:', min_tags_count: int = 1) -> 'Optional[dict]':
-		# Retrieve addresses within a +/- 0.01 degree range of the original coordinates
+		# Retrieve addresses within a +/- 0.001 degree range of the original coordinates
+		retrieve_degree = 0.001
+		# round to 8 decimals after dot
+		round_to = 8
 		self.cursor.execute('''
 			SELECT id, lat, lon, tags
 			FROM nodes
 			WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ?
-		''', (lat - 0.001, lat + 0.001, lon - 0.001, lon + 0.001))
+		''', (
+			round(lat - retrieve_degree, round_to), round(lat + retrieve_degree, round_to),
+			round(lon - retrieve_degree, round_to), round(lon + retrieve_degree, round_to)
+			)
+		)
 		rows = self.cursor.fetchall()
 		# print('Found nodes:', len(rows))
 		if len(rows) == 0:
