@@ -2,13 +2,14 @@ import os
 import osmium
 import json
 import sqlite3
+import datetime
 
 import argparse
 
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-	from typing import Optional
+	from typing import Union
 	from pathlib import Path
 
 parser = argparse.ArgumentParser(add_help=False)
@@ -45,11 +46,11 @@ def init_args(args):
 
 
 class OsmHandler(osmium.SimpleHandler):
-	def __init__(self, output: 'Optional[str]' = None):
+	def __init__(self, output: 'Union[str, Path]' = ''):
 		osmium.SimpleHandler.__init__(self)
 		self.conn = sqlite3.connect(':memory:')
-		self.output = output
-		self.conn_file = sqlite3.connect(output)
+		self.output = output if output else datetime.datetime.strftime(datetime.datetime.now(), "osm-%y-%m-%d-%H-%M-%S.db")
+		self.conn_file = sqlite3.connect(self.output)
 		self.cursor = self.conn.cursor()
 		self.cursor.execute('''CREATE TABLE IF NOT EXISTS nodes (id INTEGER PRIMARY KEY, lat REAL, lon REAL, tags TEXT)''')
 		self.cursor.execute('''CREATE TABLE IF NOT EXISTS ways (id INTEGER PRIMARY KEY, nodes INTEGER, tags TEXT)''')
@@ -78,7 +79,7 @@ class OsmHandler(osmium.SimpleHandler):
 		self.cursor.execute('''CREATE INDEX "nodes index lon" ON "nodes" ( "lon" )''')
 
 
-def osm2sqlite3(input_fpath: 'Union[str, Path]', output_fpath: 'Union[str, Path]', add_indexes: bool = True) -> 'Path':
+def osm2sqlite3(input_fpath: 'Union[str, Path]', output_fpath: 'Union[str, Path]', add_indexes: bool = True) -> bool:
 	# Conversion by handler
 	handler = OsmHandler(output_fpath)
 	handler.apply_file(input_fpath)
@@ -89,6 +90,8 @@ def osm2sqlite3(input_fpath: 'Union[str, Path]', output_fpath: 'Union[str, Path]
 	handler.conn.commit()
 	handler.save()
 	handler.conn.close()
+
+	return True
 
 
 def main():

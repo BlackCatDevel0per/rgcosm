@@ -2,6 +2,12 @@ __pycache__
 *.pyc
 venv/
 args_example.py
+shp_test.py
 test_sql.py
 *.osm.pbf
 *.db
+tmp/
+*.gpkg
+*.json
+*.egg-info
+dist/
