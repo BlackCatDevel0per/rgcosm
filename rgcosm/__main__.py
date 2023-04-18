@@ -27,6 +27,6 @@ elif args.database:
 	from .geocoder import get_address
 	from .geocoder import init_args as geocoder_init_args
 	geocoder_init_args(args)
-	addr = get_address(args.database, (args.latitude, args.longitude), args.search_tags, args.min_tags_count)
+	addr = get_address(args.database, (args.latitude, args.longitude), args.search_tags, args.min_tags_count, args.retrieve_degree, args.round_to)
 	print(addr)
 

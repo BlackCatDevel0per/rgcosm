@@ -41,14 +41,25 @@ st = parser.add_argument(
 )
 parser.add_argument(
 	'-mtc', '--min_tags_count',
-	type=str,  # int
+	type=int,
 	default=1,
 	help=f'Minimal tags count (for `{st.option_strings[0]}/{st.option_strings[1]}`) to filter result'
+)
+parser.add_argument(
+	'-rd', '--retrieve_degree',
+	type=float,
+	default=0.001,
+	help='Retrieve addresses within a +/- x degree range of the original coordinates, default: 0.001'
+)
+parser.add_argument(
+	'-rt', '--round_to',
+	type=int,
+	default=8,
+	help='Round degree to n decimals after dot, default: 8'
 )
 
 
 def init_args(args):
-	args.min_tags_count = int(args.min_tags_count)
 	if not args.latitude and not args.longitude:
 		if not args.lat_lon:
 			print('Give coordinates in lat & lon')
@@ -67,16 +78,14 @@ class RGeocoder():
 		self.cursor = self.conn.cursor()
 
 
-	def find(self, lat: float, lon: float, search_tags: str = 'addr:', min_tags_count: int = 1) -> 'Optional[dict]':
-		# Retrieve addresses within a +/- 0.001 degree range of the original coordinates
-		retrieve_degree = 0.001
-		# round to 8 decimals after dot
-		round_to = 8
+	def find(self, lat: float, lon: float, search_tags: str = 'addr:', min_tags_count: int = 1, retrieve_degree: float = 0.001, round_to: int = 8) -> 'Optional[dict]':
 		self.cursor.execute('''
 			SELECT id, lat, lon, tags
 			FROM nodes
 			WHERE lat >= ? AND lat <= ? AND lon >= ? AND lon <= ?
 		''', (
+			# Retrieve addresses within a +/- `retrieve_degree` degree range of the original coordinates
+			# round degree to `round_to` decimals after dot
 			round(lat - retrieve_degree, round_to), round(lat + retrieve_degree, round_to),
 			round(lon - retrieve_degree, round_to), round(lon + retrieve_degree, round_to)
 			)
@@ -112,13 +121,14 @@ class RGeocoder():
 		return min_address
 
 
-	def locate(self, coordinates: 'Union[Mapping[float, float], Mapping[Tuple[float, float]]]', search_tags: str = 'addr:', min_tags_count: int = 1) -> 'Optional[List[dict]]':
+	def locate(self, coordinates: 'Union[Mapping[float, float], Mapping[Tuple[float, float]]]',
+		search_tags: str = 'addr:', min_tags_count: int = 1, retrieve_degree: float = 0.001, round_to: int = 8) -> 'Optional[List[dict]]':
 		if hasattr(coordinates, '__getitem__'):
 			if isinstance(coordinates[0], float):
 				coordinates = [coordinates]
 		addresses = []
 		for lat, lon in coordinates:
-			min_address = self.find(lat, lon, search_tags, min_tags_count)
+			min_address = self.find(lat, lon, search_tags, min_tags_count, retrieve_degree, round_to)
 			if min_address:
 				addresses.append(min_address)
 		return addresses if addresses else None
@@ -139,9 +149,10 @@ class RGeocoder():
 
 
 
-def get_address(db_path: 'Union[str, Path]', coordinates: 'Union[Mapping[float, float], Mapping[Tuple[float, float]]]', search_tags: str = 'addr:', min_tags_count: int = 1) -> 'Optional[List[dict]]':
+def get_address(db_path: 'Union[str, Path]', coordinates: 'Union[Mapping[float, float], Mapping[Tuple[float, float]]]',
+	search_tags: str = 'addr:', min_tags_count: int = 1, retrieve_degree: float = 0.001, round_to: int = 8) -> 'Optional[List[dict]]':
 	geo = RGeocoder(db_path)
-	return geo.locate(coordinates, search_tags, min_tags_count)
+	return geo.locate(coordinates, search_tags, min_tags_count, retrieve_degree, round_to)
 
 
 def main():
