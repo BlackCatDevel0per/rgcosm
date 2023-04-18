@@ -1,4 +1,5 @@
 import sqlite3
+from pathlib import Path
 import json
 import math
 
@@ -33,30 +34,30 @@ parser.add_argument(
 	type=str,  # float
 	help='longitude'
 )
-st = parser.add_argument(
+_st = parser.add_argument(
 	'-st', '--search_tags',
 	type=str,
-	default='addr:',
-	help='tags to search, default: `addr:`'
+	default='addr:'
 )
-parser.add_argument(
+_st.help = f'tags to search, default: `{_st.default}`'
+_mtc = parser.add_argument(
 	'-mtc', '--min_tags_count',
 	type=int,
-	default=1,
-	help=f'Minimal tags count (for `{st.option_strings[0]}/{st.option_strings[1]}`) to filter result'
+	default=1
 )
-parser.add_argument(
+_mtc.help = f'Minimal tags count (for `{_st.option_strings[0]}/{_st.option_strings[1]}`) to filter result, default: {_mtc.default}'
+_rd = parser.add_argument(
 	'-rd', '--retrieve_degree',
 	type=float,
-	default=0.001,
-	help='Retrieve addresses within a +/- x degree range of the original coordinates, default: 0.001'
+	default=0.001
 )
-parser.add_argument(
+_rd.help = f'Retrieve addresses within a +/- x degree range of the original coordinates, default: {_rd.default}'
+_rt = parser.add_argument(
 	'-rt', '--round_to',
 	type=int,
-	default=8,
-	help='Round degree to n decimals after dot, default: 8'
+	default=8
 )
+_rt.help = f'Round degree to n decimals after dot, default: {_rt.default}'
 
 
 def init_args(args):
@@ -74,6 +75,9 @@ def init_args(args):
 class RGeocoder():
 	def __init__(self, db_path: 'Union[str, Path]'):
 		# Connect to the database
+		if not Path(db_path).exists():
+			self.conn = None
+			raise FileNotFoundError(f'DB file `{db_path}` does not exist!')
 		self.conn = sqlite3.connect(db_path)
 		self.cursor = self.conn.cursor()
 
@@ -135,9 +139,10 @@ class RGeocoder():
 
 
 	def __del__(self):
-		self.conn.close()
-		del self.cursor
-		del self.conn
+		if self.conn:
+			self.conn.close()
+			del self.cursor
+			del self.conn
 
 
 	def __enter__(self):
