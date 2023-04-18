@@ -9,7 +9,7 @@ import argparse
 from .convert import parser as conv_parser
 from .geocoder import parser as ltln_parser
 
-parser = argparse.ArgumentParser(description='rgcosm cli', parents=[conv_parser, ltln_parser])
+parser = argparse.ArgumentParser(prog='rgcosm', description='rgcosm cli', parents=[conv_parser, ltln_parser])
 
 args = parser.parse_args()
 
