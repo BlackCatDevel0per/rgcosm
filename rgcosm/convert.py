@@ -23,12 +23,12 @@ parser.add_argument(
 	type=str,
 	help='Path to output db file'
 )
-parser.add_argument(
+_ai = parser.add_argument(
 	'-ai', '--add_indexes',
 	type=str,  # bool
 	default=True,
-	help='Add indexes for faster search default yes'
 )
+_ai.help = f'Add indexes for faster search default: {_ai.default}'
 
 
 def init_args(args):

@@ -25,8 +25,9 @@ python rgcosm -h
 ```
 output:
 ```bash
-usage: rgcosm [-h] [-ci CINPUT] [-co COUTPUT] [-ai ADD_INDEXES]
-              [-db DATABASE] [-ltln LAT_LON] [-lat LATITUDE] [-lon LONGITUDE] [-st SEARCH_TAGS] [-mtc MIN_TAGS_COUNT]
+usage: rgcosm [-h] [-ci CINPUT] [-co COUTPUT] [-ai ADD_INDEXES] [-db DATABASE]
+                   [-ltln LAT_LON] [-lat LATITUDE] [-lon LONGITUDE] [-st SEARCH_TAGS]
+                   [-mtc MIN_TAGS_COUNT] [-rd RETRIEVE_DEGREE] [-rt ROUND_TO]
 
 rgcosm cli
 
@@ -37,7 +38,7 @@ optional arguments:
   -co COUTPUT, --coutput COUTPUT
                         Path to output db file
   -ai ADD_INDEXES, --add_indexes ADD_INDEXES
-                        Add indexes for faster search default yes
+                        Add indexes for faster search default: True
   -db DATABASE, --database DATABASE
                         Path to db file
   -ltln LAT_LON, --lat_lon LAT_LON
@@ -49,7 +50,13 @@ optional arguments:
   -st SEARCH_TAGS, --search_tags SEARCH_TAGS
                         tags to search, default: `addr:`
   -mtc MIN_TAGS_COUNT, --min_tags_count MIN_TAGS_COUNT
-                        Minimal tags count to filter
+                        Minimal tags count (for `-st/--search_tags`) to filter result,
+                        default: 1
+  -rd RETRIEVE_DEGREE, --retrieve_degree RETRIEVE_DEGREE
+                        Retrieve addresses within a +/- x degree range of the original
+                        coordinates, default: 0.001
+  -rt ROUND_TO, --round_to ROUND_TO
+                        Round degree to n decimals after dot, default: 8
 ```
 
 ### First convert downloaded osm(.pbf) files from:
