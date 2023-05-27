@@ -64,7 +64,7 @@ https://download.geofabrik.de/
 
 Then use cli to create the database (speedupped by using db in ram & dump in to disk):
 ```bash
-python rgcosm -ci some-place.osm.pbf -co some-place.db
+python -m rgcosm -ci some-place.osm.pbf -co some-place.db
 ```
 
 The output file can be x7-13 (for maldives file ~12.74 times) times larger then the source file, for example [maldives](https://download.geofabrik.de/asia/maldives-latest.osm.pbf) file size is 2.7 mb, and after conversion size increased to 34.4 mb (time: ~14 sec.) with added indexes and 20.1 mb without (time: ~13 sec.).
